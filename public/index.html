@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue2-Pusher-Group-Chat</title>
+		<link rel="stylesheet" href="css/style.css">
+    <style>
+        .clearfix {
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+	<div class="container" id="app">
+		<div class="row">
+			<div class="card">
+				<div class="card__heading">
+						Group Chats <span v-if="joined" class="count">{{ members.count }} </span>
+				</div>
+				<div class="card__body">
+					<div v-if="joined">
+						<em><span v-text="status"></span></em>
+						<ul class="chat">
+							<li class="clearfix" v-for="message in messages">
+								<div class="chat__body clearfix">
+									<div class="header">
+											<strong>{{ message.username }}:</strong>
+									</div>
+									<p>
+											{{ message.message }}
+									</p>
+								</div>
+							</li>
+						</ul>
+						<div class="card__footer">
+							<div class="form__group">
+								<input class="input__msg" type="text" id="btn-input" name="message" placeholder="Type your message here..." v-model="newMessage" @keyup.enter="sendMessage">
+								<button class="btn btn__msg" id="btn-chat" @click="sendMessage">Send</button>
+							</div>
+						</div>
+					</div>
+					<div v-else>
+						<div>
+							<input class="input__join" type="text" placeholder="Enter your username to join chat" v-model="username" @keyup.enter="joinChat">
+							<button class="btn btn__join" @click="joinChat">JOIN</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<script src="//js.pusher.com/4.0/pusher.min.js"></script>
+	<script src="./app.js"></script>
+</body>
+</html>
